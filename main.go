@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"sort"
 	"time"
 
 	"./block"
@@ -15,19 +14,12 @@ import (
 )
 
 func runTest(funcs map[string]func(string, string) []int, text string, pattern string) {
-	fnNames := make([]string, 0, len(funcs))
-	for k := range funcs {
-		fnNames = append(fnNames, k)
-	}
-
-	sort.Strings(fnNames)
-
-	for _, name := range fnNames {
-		fn := funcs[name]
+	for name, fn := range funcs {
 		start := time.Now()
-		fn(text, pattern)
+		result := fn(text, pattern)
 		elapsed := time.Since(start)
 		fmt.Printf("%s finished in: %s\n", name, elapsed.String())
+		fmt.Println(result)
 	}
 }
 
@@ -56,4 +48,5 @@ func main() {
 	pattern := string(patBuf)
 
 	runTest(funcs, text, pattern)
+	fmt.Println()
 }
