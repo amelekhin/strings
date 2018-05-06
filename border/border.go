@@ -1,26 +1,20 @@
 package border
 
-func getLongestBorder(str string) int {
-	strLen := len(str)
-	borderIndex := 0
-
-	for i := range str {
-		prefix := str[0:i]
-		suffix := str[strLen-i : strLen]
-
-		if prefix == suffix {
-			borderIndex = i
-		}
-	}
-
-	return borderIndex
-}
-
 func getBorders(str string) []int {
-	borders := make([]int, len(str))
+	strLen := len(str)
+	borders := make([]int, strLen)
 
+	t := 0
 	for i := range str {
-		borders[i] = getLongestBorder(str[0 : i+1])
+		for t > 0 && str[i] != str[t] {
+			t = borders[t-1]
+		}
+
+		if str[i] == str[t] {
+			t++
+		}
+
+		borders[i] = t
 	}
 
 	return borders
