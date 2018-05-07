@@ -37,7 +37,7 @@ func getBlocks(str string) []int {
 
 // Find finds all occurrences of substring "pattern"
 // in a string "text" using the "blocks" method.
-func Find(text string, pattern string) []int {
+func Find(text, pattern string) []int {
 	blocks := getBlocks(pattern + "$" + text)
 	entries := make([]int, 0)
 	patternLen := len(pattern)

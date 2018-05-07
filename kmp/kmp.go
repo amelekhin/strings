@@ -42,7 +42,7 @@ func getModifiedPatternBorders(pattern string) []int {
 
 // Find finds all occurrences of substring "pattern"
 // in a string "text" using the Knuth-Morris-Pratt method.
-func Find(text string, pattern string) []int {
+func Find(text, pattern string) []int {
 	modifiedPatternBorders := getModifiedPatternBorders(pattern)
 	patternLen := len(pattern)
 	entries := make([]int, 0)

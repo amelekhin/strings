@@ -14,23 +14,28 @@ import (
 	"./shiftand"
 )
 
-func runTest(funcs map[string]func(string, string) []int, text string, pattern string) {
-	for name, fn := range funcs {
+type searchMethod struct {
+	name string
+	fn   func(string, string) []int
+}
+
+func runTest(funcs []searchMethod, text string, pattern string) {
+	for _, searchMethod := range funcs {
 		start := time.Now()
-		result := fn(text, pattern)
+		result := searchMethod.fn(text, pattern)
 		elapsed := time.Since(start)
-		fmt.Printf("%s finished in: %s\n", name, elapsed.String())
+		fmt.Printf("%s finished in: %s\n", searchMethod.name, elapsed.String())
 		fmt.Printf("Occurrences found: %v\n\n", len(result))
 	}
 }
 
 func main() {
-	funcs := map[string]func(string, string) []int{
-		"Blocks method":         block.Find,
-		"KMP method":            kmp.Find,
-		"KMP method (realtime)": kmp.FindRT,
-		"Shift-And method":      shiftand.Find,
-		"Borders method":        border.Find,
+	funcs := []searchMethod{
+		{name: "Borders method", fn: border.Find},
+		{name: "Blocks method", fn: block.Find},
+		{name: "KMP method", fn: kmp.Find},
+		{name: "KMP method (realtime)", fn: kmp.FindRT},
+		{name: "Shift-And method", fn: shiftand.Find},
 	}
 
 	txtFlag := flag.String("t", "", "A text file")
@@ -55,5 +60,4 @@ func main() {
 	border := strings.Repeat("=", 40)
 	fmt.Printf("File: %s\n%s\n\n", *txtFlag, border)
 	runTest(funcs, text, pattern)
-	fmt.Println()
 }

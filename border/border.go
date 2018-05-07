@@ -26,7 +26,7 @@ func getBorders(str string) []int {
 
 // Find finds all occurrences of substring "pattern"
 // in a string "text" using the "borders" method.
-func Find(text string, pattern string) []int {
+func Find(text, pattern string) []int {
 	borders := getBorders(pattern + "$" + text)
 	entries := make([]int, 0)
 	patternLen := len(pattern)

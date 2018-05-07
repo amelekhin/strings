@@ -13,7 +13,7 @@ func getMask(pattern string) map[int]int {
 
 // Find finds all occurrences of substring "pattern"
 // in a string "text" using the Shift-And method.
-func Find(text string, pattern string) []int {
+func Find(text, pattern string) []int {
 	mask := getMask(pattern)
 	patternLen := len(pattern)
 	entries := make([]int, 0)
