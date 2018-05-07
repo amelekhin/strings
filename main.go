@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 	"time"
 
 	"./block"
@@ -51,6 +52,8 @@ func main() {
 	text := string(txtBuf)
 	pattern := string(patBuf)
 
+	border := strings.Repeat("=", 40)
+	fmt.Printf("File: %s\n%s\n\n", *txtFlag, border)
 	runTest(funcs, text, pattern)
 	fmt.Println()
 }
