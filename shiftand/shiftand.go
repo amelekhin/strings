@@ -2,10 +2,10 @@ package shiftand
 
 func getMask(pattern string) map[int]int {
 	mask := make(map[int]int)
-	patternLen := uint32(len(pattern))
+	patternLen := len(pattern)
 
 	for i := range pattern {
-		mask[int(pattern[i])] |= int(1<<patternLen - i - 1)
+		mask[int(pattern[i])] |= 1 << uint32(patternLen-i-1)
 	}
 
 	return mask

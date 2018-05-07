@@ -19,7 +19,7 @@ func runTest(funcs map[string]func(string, string) []int, text string, pattern s
 		result := fn(text, pattern)
 		elapsed := time.Since(start)
 		fmt.Printf("%s finished in: %s\n", name, elapsed.String())
-		fmt.Printf("Occurrences found: %v\n\n", result)
+		fmt.Printf("Occurrences found: %v\n\n", len(result))
 	}
 }
 
