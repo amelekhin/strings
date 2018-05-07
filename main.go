@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"sync"
 	"time"
 
 	"./block"
@@ -15,21 +14,13 @@ import (
 )
 
 func runTest(funcs map[string]func(string, string) []int, text string, pattern string) {
-	var wg sync.WaitGroup
-
 	for name, fn := range funcs {
-		wg.Add(1)
-		go func(fn func(string, string) []int, text, pattern, name string) {
-			defer wg.Done()
-			start := time.Now()
-			result := fn(text, pattern)
-			elapsed := time.Since(start)
-			fmt.Printf("%s finished in: %s\n", name, elapsed.String())
-			fmt.Printf("Occurrences found: %v\n\n", result)
-		}(fn, text, pattern, name)
+		start := time.Now()
+		result := fn(text, pattern)
+		elapsed := time.Since(start)
+		fmt.Printf("%s finished in: %s\n", name, elapsed.String())
+		fmt.Printf("Occurrences found: %v\n\n", result)
 	}
-
-	wg.Wait()
 }
 
 func main() {

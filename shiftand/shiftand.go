@@ -1,11 +1,11 @@
 package shiftand
 
-func getMask(pattern string) map[byte]byte {
-	mask := make(map[byte]byte)
-	patternLen := len(pattern)
+func getMask(pattern string) map[int]int {
+	mask := make(map[int]int)
+	patternLen := uint32(len(pattern))
 
 	for i := range pattern {
-		mask[pattern[i]] |= (1 << byte(patternLen-i-1))
+		mask[int(pattern[i])] |= int(1<<patternLen - i - 1)
 	}
 
 	return mask
@@ -17,11 +17,11 @@ func Find(text string, pattern string) []int {
 	mask := getMask(pattern)
 	patternLen := len(pattern)
 	entries := make([]int, 0)
-	high := byte(1 << byte(patternLen-1))
-	m := byte(0)
+	high := 1 << uint32(patternLen-1)
+	m := 0
 
 	for i := range text {
-		m = (m>>1 | high) & mask[text[i]]
+		m = (m>>1 | high) & mask[int(text[i])]
 
 		if (m & 1) != 0 {
 			entries = append(entries, i-patternLen+1)

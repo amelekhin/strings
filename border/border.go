@@ -6,6 +6,10 @@ func getBorders(str string) []int {
 
 	t := 0
 	for i := range str {
+		if i == 0 {
+			continue
+		}
+
 		for t > 0 && str[i] != str[t] {
 			t = borders[t-1]
 		}
