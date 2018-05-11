@@ -11,6 +11,7 @@ import (
 	"./block"
 	"./border"
 	"./kmp"
+	"./rabinkarp"
 	"./shiftand"
 )
 
@@ -35,6 +36,7 @@ func main() {
 		{name: "Blocks method", fn: block.Find},
 		{name: "KMP method", fn: kmp.Find},
 		{name: "KMP method (realtime)", fn: kmp.FindRT},
+		{name: "Rabin-Karp", fn: rabinkarp.Find},
 		{name: "Shift-And method", fn: shiftand.Find},
 	}
 
