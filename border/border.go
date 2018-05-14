@@ -5,11 +5,7 @@ func getBorders(str string) []int {
 	borders := make([]int, strLen)
 
 	t := 0
-	for i := range str {
-		if i == 0 {
-			continue
-		}
-
+	for i := 1; i < strLen; i++ {
 		for t > 0 && str[i] != str[t] {
 			t = borders[t-1]
 		}

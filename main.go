@@ -37,7 +37,8 @@ func main() {
 		{name: "Blocks method", fn: block.Find},
 		{name: "KMP method", fn: kmp.Find},
 		{name: "KMP method (realtime)", fn: kmp.FindRT},
-		{name: "Boyer-Moore", fn: boyermoore.Find},
+		{name: "Boyer-Moore (bad chars)", fn: boyermoore.FindBC},
+		{name: "Boyer-Moore (good suffix)", fn: boyermoore.FindGS},
 		{name: "Rabin-Karp", fn: rabinkarp.Find},
 		{name: "Shift-And method", fn: shiftand.Find},
 	}

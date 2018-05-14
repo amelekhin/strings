@@ -17,6 +17,7 @@ func Find(text, pattern string) []int {
 	mask := getMask(pattern)
 	patternLen := len(pattern)
 	entries := make([]int, 0)
+
 	high := 1 << uint32(patternLen-1)
 	m := 0
 
