@@ -4,7 +4,7 @@ import "math"
 
 const alphabetSize = 256
 
-func getBadChars(pattern string) [alphabetSize - 1]int {
+func getBadCharShifts(pattern string) [alphabetSize - 1]int {
 	var badChars [alphabetSize - 1]int
 	patternLen := len(pattern)
 
@@ -15,37 +15,38 @@ func getBadChars(pattern string) [alphabetSize - 1]int {
 	return badChars
 }
 
-func getGoodSuffixes(pattern string) []int {
+func getGoodSuffixShifts(pattern string) []int {
 	patternLen := len(pattern)
-	bPos := make([]int, patternLen+1, patternLen+1)
+	borderPos := make([]int, patternLen+1, patternLen+1)
 	goodSuffixes := make([]int, patternLen+1, patternLen+1)
 
 	i := patternLen
 	j := patternLen + 1
-	bPos[i] = j
+	borderPos[i] = j
 
+	// Step 1:
 	for i > 0 {
-		for j > 0 && j < patternLen+1 && pattern[i-1] != pattern[j-1] {
+		for j <= patternLen && pattern[i-1] != pattern[j-1] {
 			if goodSuffixes[j] == 0 {
 				goodSuffixes[j] = j - i
 			}
 
-			j = bPos[j]
+			j = borderPos[j]
 		}
 
 		i--
 		j--
-		bPos[i] = j
+		borderPos[i] = j
 	}
 
-	j = bPos[0]
-	for i = 0; i < patternLen+1; i++ {
+	j = borderPos[0]
+	for i = 0; i <= patternLen; i++ {
 		if goodSuffixes[i] == 0 {
 			goodSuffixes[i] = j
 		}
 
 		if i == j {
-			j = bPos[j]
+			j = borderPos[j]
 		}
 	}
 
@@ -57,7 +58,7 @@ func getGoodSuffixes(pattern string) []int {
 func FindBC(text, pattern string) []int {
 	textLen := len(text)
 	patternLen := len(pattern)
-	badChars := getBadChars(pattern)
+	badCharShifts := getBadCharShifts(pattern)
 	entries := make([]int, 0)
 
 	i := 0
@@ -72,7 +73,7 @@ func FindBC(text, pattern string) []int {
 			entries = append(entries, i)
 		}
 
-		shift := j - badChars[text[i+j]]
+		shift := j - badCharShifts[text[i+j]]
 		i += int(math.Max(1, float64(shift)))
 	}
 
@@ -84,7 +85,7 @@ func FindBC(text, pattern string) []int {
 func FindGS(text, pattern string) []int {
 	textLen := len(text)
 	patternLen := len(pattern)
-	goodSuffixes := getGoodSuffixes(pattern)
+	goodSuffixShifts := getGoodSuffixShifts(pattern)
 	entries := make([]int, 0)
 
 	i := 0
@@ -97,9 +98,9 @@ func FindGS(text, pattern string) []int {
 
 		if j < 0 {
 			entries = append(entries, i)
-			i += goodSuffixes[0]
+			i += goodSuffixShifts[0]
 		} else {
-			shift := goodSuffixes[j+1]
+			shift := goodSuffixShifts[j+1]
 			i += int(math.Max(1, float64(shift)))
 		}
 	}
