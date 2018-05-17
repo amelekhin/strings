@@ -5,3 +5,4 @@ go build -ldflags=-w
 ./strings -t=data/dna-text.txt -p=data/dna-pattern.txt
 ./strings -t=data/war-peace-text.txt -p=data/war-peace-pattern.txt
 ./strings -t=data/lorem-ipsum-text.txt -p=data/lorem-ipsum-pattern.txt
+./strings -t=data/abab-text.txt -p=data/abab-pattern.txt

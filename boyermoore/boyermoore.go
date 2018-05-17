@@ -24,7 +24,6 @@ func getGoodSuffixShifts(pattern string) []int {
 	j := patternLen + 1
 	borderPos[i] = j
 
-	// Step 1:
 	for i > 0 {
 		for j <= patternLen && pattern[i-1] != pattern[j-1] {
 			if goodSuffixes[j] == 0 {

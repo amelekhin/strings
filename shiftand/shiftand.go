@@ -4,7 +4,7 @@ func getMask(pattern string) map[int]int {
 	mask := make(map[int]int)
 	patternLen := len(pattern)
 
-	for i := range pattern {
+	for i := 0; i < patternLen; i++ {
 		mask[int(pattern[i])] |= 1 << uint32(patternLen-i-1)
 	}
 
